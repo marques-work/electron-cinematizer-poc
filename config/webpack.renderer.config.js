@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const base = require("./webpack.base.config");
 
-
 module.exports = base((env, argv) => ({
   entry: {
     control: "./src/views/control.jsx",
