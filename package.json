@@ -1,0 +1,49 @@
+{
+  "name": "electron-cinematizer-poc",
+  "version": "1.0.0",
+  "description": "A proof-of-concept multi-window app to implement a control screen and a render screen",
+  "engines": {
+    "node": ">= 13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marques-work/electron-cinematizer-poc.git"
+  },
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js --mode development",
+    "prod": "webpack --config config/webpack.config.js --mode production",
+    "start": "electron dist/",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node prereqs.js"
+  },
+  "author": "Marques Lee <marques.b.lee@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "create-file-webpack": "^1.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "semver": "^7.1.1",
+    "terser-webpack-plugin": "^2.3.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "electron": "^7.1.8",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
