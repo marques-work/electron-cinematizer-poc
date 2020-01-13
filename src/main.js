@@ -1,6 +1,4 @@
-import path from "path";
-import url from "url";
-import { app } from "electron";
+import { app, screen } from "electron";
 import WindowManager from "window-manager";
 
 const wm = new WindowManager();
@@ -8,23 +6,21 @@ const wm = new WindowManager();
 const CTRL = "control-window";
 const RNDR = "renderer-window";
 
-function toUrl(file) {
-  const absurl = url.format({
-    protocol: "file",
-    slashes: true,
-    pathname: path.resolve(app.getAppPath(), file),
-  });
-
-  return absurl;
-}
-
 function ensureWindows() {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  const w = Math.round(width / 2);
+  const h = Math.round(height / 2);
+
   if (!wm.has(CTRL)) {
-    wm.create(CTRL, toUrl("views/control.html"));
+    wm.create(CTRL, "views/control.html", {
+      x: 0, y: height - h, width: w, height: h,
+    });
   }
 
   if (!wm.has(RNDR)) {
-    wm.create(RNDR, toUrl("views/renderer.html"));
+    wm.create(RNDR, "views/renderer.html", {
+      x: w, y: 0, width: Math.round(width * (2 / 3)), height: Math.round(height * (2 / 3)),
+    });
   }
 }
 

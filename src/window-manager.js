@@ -1,12 +1,10 @@
 import { BrowserWindow } from "electron";
 
-function openWin(url, opts = {}) {
+function openWin(file, opts = {}) {
   const win = new BrowserWindow({ show: false, ...opts });
 
-  win.webContents.openDevTools();
-
   win.removeMenu();
-  win.loadURL(url);
+  win.loadFile(file);
 
   win.once("ready-to-show", () => {
     win.show();
@@ -18,12 +16,12 @@ function openWin(url, opts = {}) {
 export default class WindowManager {
   #current = new Map();
 
-  create(name, url, opts) {
+  create(name, file, opts) {
     if (this.#current.has(name)) {
       this.close(name);
     }
 
-    const win = openWin(url, opts);
+    const win = openWin(file, opts);
 
     win.on("closed", () => {
       this.#current.delete(name);
