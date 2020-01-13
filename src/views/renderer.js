@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { WEBGL } from "three/examples/jsm/WebGL";
 import OnReadyScheduler from "views/utils/scheduler";
+import "./renderer.scss";
 
 function presentScene() {
   const scene = new THREE.Scene();
