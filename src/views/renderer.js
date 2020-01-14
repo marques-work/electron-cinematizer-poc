@@ -1,64 +1,56 @@
 import * as THREE from "three";
-import { WEBGL } from "three/examples/jsm/WebGL";
+import SceneRef from "views/utils/scene-ref";
 import OnReadyScheduler from "views/utils/scheduler";
 import "./renderer.scss";
 
-function presentScene() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = createRenderer();
+const SR = new SceneRef();
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
+function presentScene() {
+  const { scene, camera, renderer } = SR.setup({
+    fov: 75,
+    near: 0.1,
+    far: 1000,
+    camZPos: 2,
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
-  camera.position.z = 5;
+  const color = 0xFF77FF;
+  const intensity = 1;
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(-1, 2, 4);
+  scene.add(light);
 
-  const animator = createAnimator(() => {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+  empty(document.body).appendChild(renderer.domElement);
+
+  SR.animate(() => {
+    cube.rotation.x += 0.005;
+    cube.rotation.y += 0.005;
 
     renderer.render(scene, camera);
   });
-
-  empty(document.body).appendChild(renderer.domElement);
-  animator.start();
-}
-
-function createAnimator(fn) {
-  let stop = false;
-  return {
-    start: function animate(force = false /* allows restarting animation after stop() */) {
-      if (force || !stop) {
-        if (force) { stop = false; }
-        requestAnimationFrame(animate);
-      }
-
-      fn();
-    },
-
-    stop() {
-      stop = true;
-    },
-  };
-}
-
-function createRenderer() {
-  if (WEBGL.isWebGL2Available()) {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("webgl2", { alpha: false });
-    return new THREE.WebGLRenderer({ canvas, context });
-  }
-
-  return new THREE.WebGLRenderer();
 }
 
 function empty(el) {
   while (el && el.firstChild) { el.removeChild(el.firstChild); }
   return el;
 }
+
+/** camera/renderer should adapt to window resizing */
+window.addEventListener("resize", () => {
+  const { camera, renderer } = SR;
+
+  if (camera && renderer) {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+}, false);
 
 new OnReadyScheduler().schedule(presentScene);

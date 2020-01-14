@@ -19,7 +19,7 @@ function ensureWindows() {
 
   if (!wm.has(RNDR)) {
     wm.create(RNDR, "views/renderer.html", {
-      x: w, y: 0, width: Math.round(width * (2 / 3)), height: Math.round(height * (2 / 3)),
+      x: w, y: 0, width: Math.round(width / 2), height: Math.round(height / 2),
     });
   }
 }
