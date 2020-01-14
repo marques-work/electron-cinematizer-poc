@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { WEBGL } from "three/examples/jsm/WebGL";
 
-export default class SceneRef {
+export class View {
   camera = null
 
   renderer = null
@@ -9,7 +9,7 @@ export default class SceneRef {
   animator = null
 
   setup({
-    fov, aspect, near, far, width, height, camZPos,
+    fov, aspect, near, far, width = window.innerWidth, height = window.innerHeight, camZPos,
   }) {
     this.stopAnimation(); // stop any previous animation
 
@@ -59,4 +59,24 @@ function createRenderer() {
   }
 
   return new THREE.WebGLRenderer();
+}
+
+export class ScenePresenter {
+  current = null
+
+  view = new View();
+
+  present(scene, container) {
+    this.teardown();
+    scene.setup(this.view, container);
+    this.current = scene;
+  }
+
+  teardown() {
+    if (this.current) {
+      this.current.teardown();
+    }
+
+    this.view.stopAnimation();
+  }
 }

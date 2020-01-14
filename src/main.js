@@ -1,4 +1,4 @@
-import { app, screen } from "electron";
+import { app, screen, ipcMain } from "electron";
 import WindowManager from "window-manager";
 
 const wm = new WindowManager();
@@ -45,3 +45,15 @@ app.on("activate", () => {
     ensureWindows();
   }
 });
+
+ipcMain.on("render.scene", (_, arg) => {
+  ensureWindows(); // in case the renderer window was closed...
+  log(`Update scene to: ${arg}`);
+  wm.get(RNDR).webContents.send("update.scene", arg);
+});
+
+function log(...msg) {
+  if (!app.isPackaged) {
+    console.log("[DEBUG]", ...msg); // eslint-disable-line no-console
+  }
+}

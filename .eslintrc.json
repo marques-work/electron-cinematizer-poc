@@ -24,9 +24,11 @@
         "react"
     ],
     "rules": {
-        "quotes": ["error", "double", { "avoidEscape": true }],
-        "max-len": ["error", { "code": 120, "ignoreComments": true, "ignoreTrailingComments": true, "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true }],
-        "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }]
+        "max-classes-per-file": "off",
+        "max-len":              ["error", { "code": 120, "ignoreComments": true, "ignoreTrailingComments": true, "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true }],
+        "no-plusplus":          ["error", { "allowForLoopAfterthoughts": true }],
+        "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+        "quotes":               ["error", "double", { "avoidEscape": true }]
     },
     "settings": {
         "import/resolver": { "node": { "paths": ["src"] } }

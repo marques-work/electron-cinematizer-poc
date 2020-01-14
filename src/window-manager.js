@@ -1,7 +1,7 @@
 import { BrowserWindow } from "electron";
 
 function openWin(file, opts = {}) {
-  const win = new BrowserWindow({ show: false, ...opts });
+  const win = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true }, ...opts });
 
   win.removeMenu();
   win.loadFile(file);

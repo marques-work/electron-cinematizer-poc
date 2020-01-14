@@ -1,10 +1,11 @@
+import { ipcRenderer } from "electron";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class Button extends Component {
   sendMessage() {
     const { msg } = this.props;
-    console.log(`Message to pass ${msg}`); // eslint-disable-line no-console
+    ipcRenderer.send("render.scene", msg);
   }
 
   render() {

@@ -11,10 +11,20 @@ module.exports = base((env, argv) => ({
   },
   output: { path: path.resolve(__dirname, "..", "dist", "views") },
   module: {
-    rules: [{
-      test: /\.s?css$/i,
-      use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-    }],
+    rules: [
+      {
+        test: /\.s?css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "images",
+        },
+      },
+    ],
   },
   plugins: [
     page("Navigation", "control.html", { chunks: ["control"] }),

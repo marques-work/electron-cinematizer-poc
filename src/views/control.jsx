@@ -9,8 +9,8 @@ scheduler.schedule(() => {
   ReactDOM.render(
     <div>
       <p>Click something:</p>
-      <Button msg="first">First thing</Button>
-      <Button msg="second">Second thing</Button>
+      <Button msg="basic">Basic Example</Button>
+      <Button msg="point-cube">Interactive Point Cube</Button>
     </div>,
     document.getElementById("root"),
   );
