@@ -6,7 +6,7 @@ export default {
       fov: 75,
       near: 0.1,
       far: 1000,
-      camZPos: 2,
+      camZ: 2,
     });
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);

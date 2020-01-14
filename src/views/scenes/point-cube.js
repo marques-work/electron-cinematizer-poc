@@ -37,7 +37,7 @@ class PointCube {
 
   setup(view, container) {
     const { camera, renderer } = view.setup({
-      fov: 45, near: 1, far: 10000, camZPos: 250,
+      fov: 45, near: 1, far: 10000, camZ: 250,
     });
 
     const scene = new THREE.Scene();
@@ -65,8 +65,6 @@ class PointCube {
     geometry.setAttribute("customColor", new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
-    //
-
     const material = new THREE.ShaderMaterial({
       uniforms: {
         color: { value: new THREE.Color(0xffffff) },
@@ -77,16 +75,10 @@ class PointCube {
       alphaTest: 0.9,
     });
 
-    //
-
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    //
-    renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
-
-    //
 
     const raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();

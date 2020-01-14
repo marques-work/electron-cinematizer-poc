@@ -9,16 +9,18 @@ export class View {
   animator = null
 
   setup({
-    fov, aspect, near, far, width = window.innerWidth, height = window.innerHeight, camZPos,
+    fov, aspect, near, far, width = window.innerWidth, height = window.innerHeight, camZ, camPos, renderOpts,
   }) {
     this.stopAnimation(); // stop any previous animation
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(fov, aspect || (width / height), near, far);
-    const renderer = createRenderer();
+    const renderer = createRenderer(renderOpts);
     renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
 
-    if (typeof camZPos === "number") { camera.position.z = camZPos; }
+    if (typeof camZ === "number") { camera.position.z = camZ; }
+    if (camPos instanceof Array) { camera.position.set(...camPos); }
 
     this.camera = camera;
     this.renderer = renderer;
@@ -51,14 +53,14 @@ export class View {
   }
 }
 
-function createRenderer() {
+function createRenderer(opts = {}) {
   if (WEBGL.isWebGL2Available()) {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("webgl2", { alpha: false });
-    return new THREE.WebGLRenderer({ canvas, context });
+    return new THREE.WebGLRenderer({ canvas, context, ...opts });
   }
 
-  return new THREE.WebGLRenderer();
+  return new THREE.WebGLRenderer(opts);
 }
 
 export class ScenePresenter {

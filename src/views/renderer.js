@@ -6,6 +6,11 @@ import OnReadyScheduler from "views/utils/scheduler";
 // scenes
 import BasicScene from "./scenes/basic";
 import PointCube from "./scenes/point-cube";
+import BufferGeometry from "./scenes/buffer-geo";
+import BufferGeometry2 from "./scenes/buffer-geo-2";
+import StupidTrooper from "./scenes/stupid-trooper";
+import PointLights from "./scenes/point-lights";
+import Skeletal from "./scenes/skeletal";
 
 // styles
 import "./renderer.scss";
@@ -14,6 +19,11 @@ const SP = new ScenePresenter();
 const SCENES = new Map([
   ["basic", BasicScene],
   ["point-cube", PointCube],
+  ["buffer-geo", BufferGeometry],
+  ["buffer-geo-2", BufferGeometry2],
+  ["stupid-trooper", StupidTrooper],
+  ["point-lights", PointLights],
+  ["skeletal", Skeletal],
 ]);
 
 function empty(el) {
