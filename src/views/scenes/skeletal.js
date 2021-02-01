@@ -81,7 +81,6 @@ export default {
 
       createPanel();
 
-
       //
 
       const { animations } = gltf;
@@ -246,21 +245,17 @@ function createPanel() {
   });
 }
 
-
 function showModel(visibility) {
   model.visible = visibility;
 }
-
 
 function showSkeleton(visibility) {
   skeleton.visible = visibility;
 }
 
-
 function modifyTimeScale(speed) {
   mixer.timeScale = speed;
 }
-
 
 function deactivateAllActions() {
   actions.forEach((action) => {
