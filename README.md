@@ -1,3 +1,7 @@
+# Archived
+
+I'm no longer working on this (for years now). It was just a PoC anyway.
+
 # electron-cinematizer-poc
 
 This is a proof-of-concept app to demonstrate an electron app featuring a control window interacting/affecting a renderer window.
